@@ -1,4 +1,4 @@
-;Base de Faits/Connaissances
+;Connaissances
 (setq *spots* '(Landes_FR CapeTown_RSA GoldCoast_AUS Ohahu_HWI Bali_IDN Reykjanes_ISL))
 (setq *desc* 
 	'(
@@ -17,6 +17,18 @@
 		"Conditions exceptionnelles : L'air est plein d'écume et d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite"
 	 )
 )
+(setq *TV*
+	'(
+		(0)
+		(0 0.1)
+		(0.2 0.5)
+		(0.6 1.25)
+		(1.3 2.5)
+		(2.6 4)
+		(4.1 6)
+		(6.1 9)
+	 )
+)
 (setq *PS* 
 	'(
 		(faible  (Landes_FR Reykjanes_ISL))
@@ -26,14 +38,14 @@
 )
 
 
-;Initialisations des variables
+;Base de Faits
 (setq FV 21)
 (setq Text 26)
 (setq S 'Landes_FR)
 (setq EB NIL)
 (setq PS NIL)
-
-
+(setq Desc NIL)
+(setq TV NIL)
 
 
 
@@ -72,7 +84,15 @@
 
 ;Desc en fonction de l'échelle de Beaufort
 (defun getDesc(x)
-	(nth (- x 1) *desc*)
+	(setq Desc (nth x *desc*))
+)
+
+;TV en fonction de l'échelle de Beaufort
+(defun getTV(x)
+	(if(< x 8)
+		(setq TV (nth x *TV*))
+		(print "Erreur: On parle de tsunami là! Fuis pauvre fou!")
+     )
 )
 
 ;Tests
@@ -82,4 +102,17 @@
 (getPS (car (cadr (cadr *PS*))))
 (print PS)
 
-(print (getDesc 4))
+(getDesc 4)
+(print Desc)
+
+(getDesc 9)
+(print Desc)
+
+(getTV 4)
+(print TV)
+
+(getTV 9)
+(print TV)
+
+
+
