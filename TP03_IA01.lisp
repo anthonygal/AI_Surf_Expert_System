@@ -145,13 +145,94 @@
 
 (defun getMP(x y)
 		(cond
-			((AND(OR(AND(>= x 4.1) (<= x 6)) (AND(>= x 7)) (<= x 9)) (OR(eq y "Faible") (eq y "Moyen"))) (setq MP (assoc (nth 0 *MP*) (nth 1 *MP*))))
-			((AND(OR(AND(>= x 4.1) (<= x 6))  (AND(>= x 7)) (<= x 9)) ((eq y "Eleve"))) (setq MP  (nth 1 *MP*)))
-			((AND(OR(eq x 0) (AND(>= x 0)) (<= x 0.1)) (OR(eq y "Faible") (eq y "Moyen")  (eq y "Eleve")))) (setq MP (nth 1 *MP*)))
-			((AND(OR(AND(>= x 0.2) (<= x 0.5)) (AND(>= x 0.6)) (<= x 1.25)) (OR(eq y "Faible") (eq y "Moyen"))) (setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
-			((AND(OR(AND(>= x 0.2) (<= x 0.5)) (AND(>= x 0.6)) (<= x 1.25)) ((eq y "Eleve"))) (setq MP (assoc (nth 0 *MP*)(nth 3 *MP*))))
-			((AND(OR(AND(>= x 1.3) (<= x 2.5)) (AND(>= x 2.6)) (<= x 4)) (OR(eq y "Faible") (eq y "Moyen"))) (setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*))))
-			((AND(OR(AND(>= x 1.3) (<= x 2.5))(AND(>= x 2.6)) (<= x 4)) ((eq y "Eleve"))) (setq MP (nth 1 *MP*)))
+			((AND
+						(OR
+								(AND
+									(>= x 4.1) (<= x 6))
+							  (AND
+									(>= x 7)) (<= x 9)
+						 )
+						(OR
+								(eq y "Faible") (eq y "Moyen")
+						)
+				)
+			(setq MP (assoc (nth 0 *MP*) (nth 1 *MP*)))
+			)
+
+			((AND
+						(OR
+								(AND
+									(>= x 4.1) (<= x 6))
+								(AND
+									(>= x 7)) (<= x 9))
+								(eq y "Eleve")
+			 )
+			(setq MP  (nth 1 *MP*))
+			)
+
+			((AND
+						(OR
+							(eq x 0)
+							(AND
+								(>= x 0)) (<= x 0.1))
+						(OR
+							(eq y "Faible") (eq y "Moyen")  (eq y "Eleve"))
+				)
+			)
+			(setq MP (nth 1 *MP*))
+
+			((AND
+						(OR
+							(AND
+								(>= x 0.2) (<= x 0.5))
+							(AND
+								(>= x 0.6)) (<= x 1.25)
+						)
+						 (OR
+							(eq y "Faible") (eq y "Moyen")
+						 )
+				)
+			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
+
+			((AND
+						(OR
+							(AND
+								(>= x 0.2) (<= x 0.5)
+							)
+							(AND
+								(>= x 0.6) (<= x 1.25)
+							)
+						(eq y "Eleve")
+						)
+				)
+			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
+			)
+			((AND
+						(OR
+							(AND
+								(>= x 1.3) (<= x 2.5)
+							)
+							(AND
+								(>= x 2.6)) (<= x 4)
+							)
+						(OR
+							(eq y "Faible") (eq y "Moyen")
+						)
+				)
+			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
+			)
+			((AND
+						(OR
+							(AND
+								(>= x 1.3) (<= x 2.5)
+							)
+							(AND
+								(>= x 2.6)) (<= x 4)
+							)
+						(eq y "Eleve")
+				)
+		 (setq MP (nth 1 *MP*))
+	 		)
 		)
 )
 
