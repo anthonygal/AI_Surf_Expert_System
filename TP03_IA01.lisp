@@ -39,7 +39,7 @@
 
 (setq *TV*
 	'(
-		(0)
+		(0 0)
 		(0 0.1)
 		(0.2 0.5)
 		(0.6 1.25)
@@ -58,18 +58,18 @@
 )
 (setq *W*
       '(
-        ( "4/3 mm Combinaison Intégrale + bottes "
-					"3/2 mm Combinaison Intégrale + bottes "
-         "3/2 mm Combinaison Intégrale"
-         "Springsuit"
-         "Rash Guard"
-         "Short et Lycra"
+        "4/3 mm Combinaison Intégrale + bottes "
+		"3/2 mm Combinaison Intégrale + bottes "
+        "3/2 mm Combinaison Intégrale"
+        "Springsuit"
+        "Rash Guard"
+        "Short et Lycra"
          )
  )
 
 ;Base de Faits
 (setq FV 21)
-(setq T 25)
+(setq Te 25)
 (setq S 'Landes_FR)
 (setq EB NIL)
 (setq PS NIL)
@@ -117,13 +117,13 @@
 		(dolist (x *tempSpot*)
 			( if (member spot x)
 						(cond
-								((AND (>= f 0) ((<= f 10)))		(setq T (- car x 0.19) ))
-								((AND (>= f 11) ((<= f 20)))		(setq T (- car x 0.63) ))
-								((AND (>= f 21) ((<= f 30)))		(setq T (- car x 1.29) ))
-								((AND (>= f 31) ((<= f 40)))		(setq T (- car x 2.05) ))
-								((AND (>= f 41) ((<= f 50)))		(setq T (- car x 3.01) ))
-								((AND (>= f 51) ((<= f 60)))		(setq T (- car x 4.25) ))
-								(	(> f 60)		(print "Erreur: Trop de vent pour surfer!")))
+								((AND (>= f 0) (<= f 10))		(setq Te (- car x 0.19) ))
+								((AND (>= f 11) (<= f 20))		(setq Te (- car x 0.63) ))
+								((AND (>= f 21) (<= f 30))		(setq Te (- car x 1.29) ))
+								((AND (>= f 31) (<= f 40))		(setq Te (- car x 2.05) ))
+								((AND (>= f 41) (<= f 50))		(setq Te (- car x 3.01) ))
+								((AND (>= f 51) (<= f 60))		(setq Te (- car x 4.25) ))
+								((> f 60)		(print "Erreur: Trop de vent pour surfer!")))
 						)
 			)
 )
@@ -143,107 +143,116 @@
 
 ;Modèle de planche en fonction de la popularité du spot et Taille de la vague
 
-(defun getMP(x y)
-		(cond
-			((AND
-						(OR
-								(AND
-									(>= x 4.1) (<= x 6))
-							  (AND
-									(>= x 7)) (<= x 9)
-						 )
-						(OR
-								(eq y "Faible") (eq y "Moyen")
-						)
-				)
-			(setq MP (assoc (nth 0 *MP*) (nth 1 *MP*)))
-			)
+; (defun getMP(x y)
+; 		(cond
+; 			((AND
+; 						(OR
+; 								(AND
+; 									(>= x 4.1) (<= x 6))
+; 							  (AND
+; 									(>= x 7)) (<= x 9)
+; 						 )
+; 						(OR
+; 								(eq y "Faible") (eq y "Moyen")
+; 						)
+; 				)
+; 			(setq MP (assoc (nth 0 *MP*) (nth 1 *MP*)))
+; 			)
 
-			((AND
-						(OR
-								(AND
-									(>= x 4.1) (<= x 6))
-								(AND
-									(>= x 7)) (<= x 9))
-								(eq y "Eleve")
-			 )
-			(setq MP  (nth 1 *MP*))
-			)
+; 			((AND
+; 						(OR
+; 								(AND
+; 									(>= x 4.1) (<= x 6))
+; 								(AND
+; 									(>= x 7)) (<= x 9))
+; 								(eq y "Eleve")
+; 			 )
+; 			(setq MP  (nth 1 *MP*))
+; 			)
 
-			((AND
-						(OR
-							(eq x 0)
-							(AND
-								(>= x 0)) (<= x 0.1))
-						(OR
-							(eq y "Faible") (eq y "Moyen")  (eq y "Eleve"))
-				)
-			)
-			(setq MP (nth 1 *MP*))
+; 			((AND
+; 						(OR
+; 							(eq x 0)
+; 							(AND
+; 								(>= x 0)) (<= x 0.1))
+; 						(OR
+; 							(eq y "Faible") (eq y "Moyen")  (eq y "Eleve"))
+; 				)
+; 			)
+; 			(setq MP (nth 1 *MP*))
 
-			((AND
-						(OR
-							(AND
-								(>= x 0.2) (<= x 0.5))
-							(AND
-								(>= x 0.6)) (<= x 1.25)
-						)
-						 (OR
-							(eq y "Faible") (eq y "Moyen")
-						 )
-				)
-			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
+; 			((AND
+; 						(OR
+; 							(AND
+; 								(>= x 0.2) (<= x 0.5))
+; 							(AND
+; 								(>= x 0.6)) (<= x 1.25)
+; 						)
+; 						 (OR
+; 							(eq y "Faible") (eq y "Moyen")
+; 						 )
+; 				)
+; 			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
 
-			((AND
-						(OR
-							(AND
-								(>= x 0.2) (<= x 0.5)
-							)
-							(AND
-								(>= x 0.6) (<= x 1.25)
-							)
-						(eq y "Eleve")
-						)
-				)
-			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
-			)
-			((AND
-						(OR
-							(AND
-								(>= x 1.3) (<= x 2.5)
-							)
-							(AND
-								(>= x 2.6)) (<= x 4)
-							)
-						(OR
-							(eq y "Faible") (eq y "Moyen")
-						)
-				)
-			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
-			)
-			((AND
-						(OR
-							(AND
-								(>= x 1.3) (<= x 2.5)
-							)
-							(AND
-								(>= x 2.6)) (<= x 4)
-							)
-						(eq y "Eleve")
-				)
-		 (setq MP (nth 1 *MP*))
-	 		)
-		)
-)
+; 			((AND
+; 						(OR
+; 							(AND
+; 								(>= x 0.2) (<= x 0.5)
+; 							)
+; 							(AND
+; 								(>= x 0.6) (<= x 1.25)
+; 							)
+; 						(eq y "Eleve")
+; 						)
+; 				)
+; 			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
+; 			)
+; 			((AND
+; 						(OR
+; 							(AND
+; 								(>= x 1.3) (<= x 2.5)
+; 							)
+; 							(AND
+; 								(>= x 2.6)) (<= x 4)
+; 							)
+; 						(OR
+; 							(eq y "Faible") (eq y "Moyen")
+; 						)
+; 				)
+; 			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
+; 			)
+; 			((AND
+; 						(OR
+; 							(AND
+; 								(>= x 1.3) (<= x 2.5)
+; 							)
+; 							(AND
+; 								(>= x 2.6)) (<= x 4)
+; 							)
+; 						(eq y "Eleve")
+; 				)
+; 		 (setq MP (nth 1 *MP*))
+; 	 		)
+; 		)
+; )
 
 ;Nombre de personnes en fonction de la taille de la vague et de la popularité du spot
-
-(defun getNP ( x y )
-((AND((AND(>= x 0) (<= x 20)) OR (AND(>= x 21)) (<= x 50)) (AND((eq y 0) OR (<= y 0)) (<= y 0.1)) OR (AND(>= y 21)) (<= y 50))) (setq MP (assoc (nth 0 *MP*) (nth 1 *MP*))))
-
-
-
+(defun getNP (x y)(
+	cond
+		((AND
+			(OR (<= (car x) 2.5)
+				(>= (cadr x) 7)
+			)
+			(EQ y "faible")
+		) 
+		(setq NP '(0 20))
+		)
+		()
+		()
+		()
+	)
 )
+
 ;Desc en fonction de l'échelle de Beaufort
 (defun getDesc(x)
 	(setq Desc (nth x *desc*))
@@ -275,3 +284,7 @@
 
 (getTV 9)
 (print TV)
+
+(getNP '(0) 'FAIBLE)
+(print NP)
+
