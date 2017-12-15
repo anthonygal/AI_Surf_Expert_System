@@ -1,6 +1,22 @@
 ;Base de Faits/Connaissances
 (setq *spots* '(Landes_FR CapeTown_RSA GoldCoast_AUS Ohahu_HWI Bali_IDN Reykjanes_ISL))
-(setq *EB* (1 2 3 4 5 6 7 8 9 10 11 12))
+(setq *desc* 
+	'(
+		"La mer est comme un miroir, lisse et sans vague"
+		"Quelques rides ressemblant à des écailles de poisson, mais sans aucune écume"
+		"Vaguelettes ne déferlant pas"
+		"Très petites vagues. Les crêtes commencent à déferler. Écume d'aspect vitreux. Parfois quelques moutons épars"
+		"Petites vagues, de nombreux moutons"
+		"Vagues modérées, moutons et embruns"
+		"Crêtes d'écume blanches, lames, embruns"
+		"Trainées d'écume, lames déferlantes"
+		"Tourbillons d'écumes à la crête des lames, trainées d'écume"
+		"Lames déferlantes grosses à énormes, visibilité réduite par les embruns"
+		"Conditions exceptionnelles : Très grosses lames à longue crête en panache. L'écume produite s'agglomère en larges bancs et est soufflée dans le lit du vent en épaisses trainées blanches. Dans son ensemble, la surface des eaux semble blanche. Le déferlement en rouleaux devient intense et brutal. Visibilité réduite"
+		"Conditions exceptionnelles : Lames exceptionnellement hautes (les navires de petit et moyen tonnage peuvent, par instant, être perdus de vue). La mer est complètement recouverte de bancs d'écume blanche élongés dans la direction du vent. Partout, le bord de la crête des lames est soufflé et donne de la mousse. Visibilité réduite"
+		"Conditions exceptionnelles : L'air est plein d'écume et d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite"
+	 )
+)
 (setq *PS* 
 	'(
 		(faible  (Landes_FR Reykjanes_ISL))
@@ -26,6 +42,7 @@
 ;Regles de premier niveau
 
 ;Echelle de Beaufort EB en fonction de la force du vent FV (ici x)
+;Ici les connaissances sur l'Echelle de Beaufort sont contenues dans la règle elle même (je ne sais pas si le meilleur bail) 
 (defun getEB(x)
 	(cond   
 		((AND (>= x 0 ) (<= x 1 ))   		(setq EB 0))
@@ -53,9 +70,16 @@
 	)
 )
 
+;Desc en fonction de l'échelle de Beaufort
+(defun getDesc(x)
+	(nth (- x 1) *desc*)
+)
+
 ;Tests
 (getEB FV)
 (print EB)
 
 (getPS (car (cadr (cadr *PS*))))
 (print PS)
+
+(print (getDesc 4))
