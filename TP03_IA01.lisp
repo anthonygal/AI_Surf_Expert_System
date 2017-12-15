@@ -1,6 +1,6 @@
 ;Connaissances
 (setq *spots* '(Landes_FR CapeTown_RSA GoldCoast_AUS Ohahu_HWI Bali_IDN Reykjanes_ISL))
-(setq *desc* 
+(setq *desc*
 	'(
 		"La mer est comme un miroir, lisse et sans vague"
 		"Quelques rides ressemblant à des écailles de poisson, mais sans aucune écume"
@@ -17,6 +17,26 @@
 		"Conditions exceptionnelles : L'air est plein d'écume et d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite"
 	 )
 )
+(setq *tempSpot*
+	'(
+		(Landes_FR  14)
+		(CapeTown_RSA 20)
+		(GoldCoast_AUS 22)
+		(Ohahu_HWI 26)
+		(Bali_IDN  29)
+		(Reykjanes_ISL 6)
+	)
+)
+
+(setq *MP*
+			'("Shortboard"
+				"Big Wave Surfboard"
+				"Funboard"
+				"Fish Surfboard"
+				"Longboard"
+			)
+)
+
 (setq *TV*
 	'(
 		(0)
@@ -29,18 +49,26 @@
 		(6.1 9)
 	 )
 )
-(setq *PS* 
+(setq *PS*
 	'(
 		(faible  (Landes_FR Reykjanes_ISL))
 		(moyen (CapeTown_RSA GoldCoast_AUS))
 		(eleve (Ohahu_HWI Bali_IDN))
 	 )
 )
-
+(setq *W*
+      '(
+        ("3/2 mm Combinaison Intégrale + bottes "
+         "3/2 mm Combinaison Intégrale"
+         "Springsuit"
+         "Rash Guard"
+         "Short et Lycra"
+         )
+ )
 
 ;Base de Faits
 (setq FV 21)
-(setq Text 26)
+(setq T 25)
 (setq S 'Landes_FR)
 (setq EB NIL)
 (setq PS NIL)
@@ -54,9 +82,9 @@
 ;Regles de premier niveau
 
 ;Echelle de Beaufort EB en fonction de la force du vent FV (ici x)
-;Ici les connaissances sur l'Echelle de Beaufort sont contenues dans la règle elle même (je ne sais pas si le meilleur bail) 
+;Ici les connaissances sur l'Echelle de Beaufort sont contenues dans la règle elle même (je ne sais pas si le meilleur bail)
 (defun getEB(x)
-	(cond   
+	(cond
 		((AND (>= x 0 ) (<= x 1 ))   		(setq EB 0))
 		((AND (>= x 2 ) (<= x 5 ))    		(setq EB 1))
 		((AND (>= x 6 ) (<= x 11 ))    		(setq EB 2))
@@ -80,6 +108,26 @@
 			(setq PS (car p))
 		)
 	)
+)
+;Calcul de la temperature finale de l'eau
+
+(defun getT (f spot)
+		(dolist (x *tempSpot*)
+			( if (member spot x)
+						(cond
+								((AND (>= f 0) ((<= f 10)))		(setq T (- car x 0.19) ))
+								((AND (>= f 11) ((<= f 20)))		(setq T (- car x 0.63) ))
+								((AND (>= f 21) ((<= f 30)))		(setq T (- car x 1.29) ))
+								((AND (>= f 31) ((<= f 40)))		(setq T (- car x 2.05) ))
+								((AND (>= f 41) ((<= f 50)))		(setq T (- car x 3.01) ))
+								((AND (>= f 51) ((<= f 60)))		(setq T (- car x 4.25) ))
+								((AND (> f 60)		(print "Erreur: Trop de vent pour surfer!")))
+						)
+			)
+
+
+
+
 )
 
 ;Desc en fonction de l'échelle de Beaufort
@@ -113,6 +161,3 @@
 
 (getTV 9)
 (print TV)
-
-
-
