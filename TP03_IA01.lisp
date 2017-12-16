@@ -373,9 +373,77 @@
 	)
 )
 
-;MOTEUR D'INFERENCE
+;MOTEUR D'INFERENCE 
+
+;Algo de chainage avant en largeur d'abord
+;	FAIRE{
+;	FIN=0
+;	Si but est dans BF
+;		Afficher reslultat
+;		FIN=1
+;	Sinon;
+;		Trouver regles candidates
+;		Appliquer regles / ajout des resultats à la base de fait
+;		Retirer les regles de la *BR*
+;	}TANT QUE FIN=0
 
 
+;Verifie si une sous liste de But est dans la BR
+(defun ButDansBF?(B)(
+  let (ok)(
+           progn
+               (setq ok T)
+               (dolist (x B)
+                   (if (EQ (symbol-value x) NIL)
+                        (setq ok NIL)
+                    )
+               )
+               ok
+           ) 
+)                    
+)
+
+;Renvoie la liste des regles applicables pour une base de fait donnée
+(defun ReglesApplicables ()(
+		let (res)(
+			progn
+				(dolist (r *BR*)(
+					if (ButDansBF? (cadr r))
+						(push r res)
+					)
+				)
+				res
+		)
+	)
+)
+
+;Applique la regle R, met a jour la base de fait et retire la regle de la base de regle
+(defun AppliquerRegle (R)(
+
+	)
+)
+
+(defun resultat (B BF BR)(
+	loop(
+		if (ButDansBF? B BR)
+			(progn
+				(dolist (x B)
+					(print (symbol-value x))
+				)
+				(return)
+			)
+			(if (NOT (EQ BR NIL))
+				(dolist (r (ReglesApplicables BF BR))
+					(AppliquerRegle r)
+				)
+				(progn
+					(print "ECHEC, PLUS DE REGLES APPLICABLES")
+					(return)
+				)
+			)
+		)
+	)
+)
 
 ;Tests
 
