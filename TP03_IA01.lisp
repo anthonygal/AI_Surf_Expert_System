@@ -89,17 +89,17 @@
 ;Base de Règles
 
 (setq *BR*
-	(list
-		'((FV) EB)
-		'((S) PS)
-		'((FV S) Te)
-		'((EB) TV)
-		'((EB) Desc)
-		'((Te) W)
-		'((TV PS) NP)
-		'((TV PS) MP)
-		'((NP TV) NS)
-	)
+	'(
+		(R1 (FV) EB getEB)
+		(R2 (S) PS getPS)
+		(R3 (FV S) Te getTe)
+		(R4 (EB) TV getTV)
+		(R5 (EB) Desc getDesc)
+		(R6 (Te) W getW)
+		(R7 (TV PS) NP getNP)
+		(R8 (TV PS) MP getMP)
+		(R9 (NP TV) NS getNS)
+      )
 )
 
 
