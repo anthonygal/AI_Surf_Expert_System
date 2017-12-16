@@ -166,99 +166,94 @@
 
 ;Modèle de planche en fonction de la popularité du spot et Taille de la vague
 
-; (defun getMP(x y)
-; 		(cond
-; 			((AND
-; 						(OR
-; 								(AND
-; 									(>= x 4.1) (<= x 6))
-; 							  (AND
-; 									(>= x 7)) (<= x 9)
-; 						 )
-; 						(OR
-; 								(eq y "Faible") (eq y "Moyen")
-; 						)
-; 				)
-; 			(setq MP (assoc (nth 0 *MP*) (nth 1 *MP*)))
-; 			)
-
-; 			((AND
-; 						(OR
-; 								(AND
-; 									(>= x 4.1) (<= x 6))
-; 								(AND
-; 									(>= x 7)) (<= x 9))
-; 								(eq y "Eleve")
-; 			 )
-; 			(setq MP  (nth 1 *MP*))
-; 			)
-
-; 			((AND
-; 						(OR
-; 							(eq x 0)
-; 							(AND
-; 								(>= x 0)) (<= x 0.1))
-; 						(OR
-; 							(eq y "Faible") (eq y "Moyen")  (eq y "Eleve"))
-; 				)
-; 			)
-; 			(setq MP (nth 1 *MP*))
-
-; 			((AND
-; 						(OR
-; 							(AND
-; 								(>= x 0.2) (<= x 0.5))
-; 							(AND
-; 								(>= x 0.6)) (<= x 1.25)
-; 						)
-; 						 (OR
-; 							(eq y "Faible") (eq y "Moyen")
-; 						 )
-; 				)
-; 			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
-
-; 			((AND
-; 						(OR
-; 							(AND
-; 								(>= x 0.2) (<= x 0.5)
-; 							)
-; 							(AND
-; 								(>= x 0.6) (<= x 1.25)
-; 							)
-; 						(eq y "Eleve")
-; 						)
-; 				)
-; 			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
-; 			)
-; 			((AND
-; 						(OR
-; 							(AND
-; 								(>= x 1.3) (<= x 2.5)
-; 							)
-; 							(AND
-; 								(>= x 2.6)) (<= x 4)
-; 							)
-; 						(OR
-; 							(eq y "Faible") (eq y "Moyen")
-; 						)
-; 				)
-; 			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
-; 			)
-; 			((AND
-; 						(OR
-; 							(AND
-; 								(>= x 1.3) (<= x 2.5)
-; 							)
-; 							(AND
-; 								(>= x 2.6)) (<= x 4)
-; 							)
-; 						(eq y "Eleve")
-; 				)
-; 		 (setq MP (nth 1 *MP*))
-; 	 		)
-; 		)
-; )
-
+(defun getMP(x y)
+ 		(cond
+			((AND
+ 						(OR
+ 								(AND
+ 									(>= x 4.1) (<= x 6))
+ 							  (AND
+ 									(>= x 7)) (<= x 9)
+ 						 )
+ 						(OR
+ 								(EQ y 'FAIBLE) (EQ y 'MOYEN)
+ 						)
+ 				)
+ 			(setq MP (list (nth 0 *MP*) (nth 1 *MP*)))
+ 			)
+ 			((AND
+ 						(OR
+ 								(AND
+ 									(>= x 4.1) (<= x 6))
+ 								(AND
+ 									(>= x 7)) (<= x 9))
+ 								(EQ y 'ELEVE)
+ 			 )
+ 			(setq MP  (nth 1 *MP*))
+ 			)
+ 			((AND
+ 						(OR
+ 							(EQ x 0)
+ 							(AND
+ 								(>= x 0)) (<= x 0.1))
+ 						(OR
+ 							(EQ y 'FAIBLE) (EQ y 'MOYEN)  (EQ y 'ELEVE))
+ 				)
+ 			)
+ 			(setq MP (nth 1 *MP*))
+ 			((AND
+ 						(OR
+ 							(AND
+ 								(>= x 0.2) (<= x 0.5))
+ 							(AND
+ 								(>= x 0.6)) (<= x 1.25)
+ 						)
+ 						 (OR
+ 							(EQ y 'FAIBLE) (EQ y 'MOYEN)
+ 						 )
+ 				)
+ 			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
+ 			((AND
+ 						(OR
+							(AND
+ 								(>= x 0.2) (<= x 0.5)
+ 							)
+ 							(AND
+ 								(>= x 0.6) (<= x 1.25)
+ 							)
+ 						(EQ y 'ELEVE)
+ 						)
+ 				)
+ 			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
+ 			)
+ 			((AND
+ 						(OR
+ 							(AND
+ 								(>= x 1.3) (<= x 2.5)
+ 							)
+ 							(AND
+ 								(>= x 2.6)) (<= x 4)
+ 							)
+ 						(OR
+ 							(EQ y 'FAIBLE) (EQ y 'MOYEN)
+ 						)
+ 				)
+ 			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
+ 			)
+			((AND
+ 						(OR
+ 							(AND
+								(>= x 1.3) (<= x 2.5)
+ 							)
+ 							(AND
+ 								(>= x 2.6)) (<= x 4)
+ 							)
+ 						(EQ y 'ELEVE)
+ 				)
+ 		 (setq MP (nth 1 *MP*))
+ 	 		)
+ 		)
+ )
 ;Nombre de personnes en fonction de la taille de la vague (ici x) et de la popularité du spot (ici y)
 (defun getNP (x y)(
 	cond
@@ -267,7 +262,7 @@
 				(>= (cadr x) 7)
 			)
 			(EQ y 'FAIBLE)
-		) 
+		)
 		(setq NP '(0 20))
 		)
 		((AND
@@ -275,7 +270,7 @@
 				 (< (car x) 7)
 			)
 			(EQ y 'FAIBLE)
-		) 
+		)
 		(setq NP '(21 50))
 		)
 		((AND
@@ -283,7 +278,7 @@
 				(>= (cadr x) 7)
 			)
 			(EQ y 'MOYEN)
-		) 
+		)
 		(setq NP '(0 20))
 		)
 		((AND
@@ -291,7 +286,7 @@
 				 (< (car x) 7)
 			)
 			(EQ y 'MOYEN)
-		) 
+		)
 		(setq NP '(21 50))
 		)
 		((AND
@@ -299,19 +294,19 @@
 				 (< (car x) 7)
 			)
 			(EQ y 'ELEVE)
-		) 
+		)
 		(setq NP '(50 2000))
 		)
 		((AND
 			(<= (cadr x) 0.2)
 			(EQ y 'ELEVE)
-		) 
+		)
 		(setq NP '(0 20))
 		)
 		((AND
 			(>= (car x) 7)
 			(EQ y 'ELEVE)
-		) 
+		)
 		(setq NP '(21 50))
 		)
 	)
@@ -336,44 +331,44 @@
 		((AND
 			(<= (cadr x) 20)
 			(<= (cadr y) 1.3)
-		) 
+		)
 		(setq NS '(Debutant Intermediaire Expert))
 		)
 		((AND
 			(<= (cadr x) 20)
 			(> (cadr y) 1.3)
 			(< (car y) 4)
-		) 
+		)
 		(setq NS '(Intermediaire Expert))
 		)
 		((AND
 			(> (cadr x) 20)
 			(< (car x) 50)
 			(< (car y) 4)
-		) 
+		)
 		(setq NS '(Intermediaire Expert))
 		)
 		((AND
 			(>= (car x) 50)
 			(<= (car y) 1.3)
-		) 
+		)
 		(setq NS '(Intermediaire Expert))
 		)
 		((AND
 			(>= (car x) 50)
 			(> (cadr y) 1.3)
 			(< (car y) 4)
-		) 
+		)
 		(setq NS '(Expert))
 		)
-		((>= (car y) 4) 
+		((>= (car y) 4)
 		(setq NS '(Expert))
 		)
 
 	)
 )
 
-;MOTEUR D'INFERENCE 
+;MOTEUR D'INFERENCE
 
 ;Algo de chainage avant en largeur d'abord
 ;	FAIRE{
@@ -399,8 +394,8 @@
                     )
                )
                ok
-           ) 
-)                    
+           )
+)
 )
 
 ;Renvoie la liste des regles applicables pour une base de fait donnée
@@ -420,7 +415,7 @@
 ;Applique la regle R, met a jour la base de fait et retire la regle de la base de regle
 (defun AppliquerRegle (R)(
 	progn
-		(apply (caddr R) (cadr R)) ;appel de la fonction get correspondante qui met à jour elle meme la BF par definition des fonctions get et de la BF 
+		(apply (caddr R) (cadr R)) ;appel de la fonction get correspondante qui met à jour elle meme la BF par definition des fonctions get et de la BF
 		(delete R *BR*)
 	)
 )
