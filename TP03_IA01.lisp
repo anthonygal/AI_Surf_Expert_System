@@ -307,6 +307,48 @@
      )
 )
 
+;NS en fonction de  NP (ici x) et TV (ici y)
+(defun getNS (x y)(
+	cond
+		((AND
+			(<= (cadr x) 20)
+			(<= (cadr y) 1.3)
+		) 
+		(setq NS '(Debutant Intermediaire Expert))
+		)
+		((AND
+			(<= (cadr x) 20)
+			(> (cadr y) 1.3)
+			(< (car y) 4)
+		) 
+		(setq NS '(Intermediaire Expert))
+		)
+		((AND
+			(> (cadr x) 20)
+			(< (car x) 50)
+			(< (car y) 4)
+		) 
+		(setq NS '(Intermediaire Expert))
+		)
+		((AND
+			(>= (car x) 50)
+			(<= (car y) 1.3)
+		) 
+		(setq NS '(Intermediaire Expert))
+		)
+		((AND
+			(>= (car x) 50)
+			(> (cadr y) 1.3)
+			(< (car y) 4)
+		) 
+		(setq NS '(Expert))
+		)
+		((>= (car y) 4) 
+		(setq NS '(Expert))
+		)
+
+	)
+)
 ;Tests
 (getEB FV)
 (print EB)
@@ -329,3 +371,5 @@
 (getNP '(3 4) 'FAIBLE)
 (print NP)
 
+(getNS '(53 57) '(2 3))
+(print NS)
