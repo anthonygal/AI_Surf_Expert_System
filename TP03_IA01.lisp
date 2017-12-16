@@ -236,7 +236,7 @@
 ; 		)
 ; )
 
-;Nombre de personnes en fonction de la taille de la vague et de la popularité du spot
+;Nombre de personnes en fonction de la taille de la vague (ici x) et de la popularité du spot (ici y)
 (defun getNP (x y)(
 	cond
 		((AND
