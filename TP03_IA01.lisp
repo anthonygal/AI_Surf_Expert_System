@@ -17,7 +17,7 @@
 		"Conditions exceptionnelles : L'air est plein d'écume et d'embruns. La mer est entièrement blanche du fait des bancs d'écume dérivants. Visibilité fortement réduite"
 	 )
 )
-(setq *tempSpot*
+(setq *Te*
 	'(
 		(Landes_FR  14)
 		(CapeTown_RSA 20)
@@ -77,10 +77,32 @@
 (setq Desc NIL)
 (setq TV NIL)
 (setq W NIL)
+(setq MP NIL)
+(setq NP NIL)
+(setq NS NIL)
 
+(setq *BF* '(FV Te S))
 
+;But
+(setq *But* '(Desc NS MP W))
 
 ;Base de Règles
+
+(setq *BR*
+	(list
+		'((FV) EB)
+		'((S) PS)
+		'((FV S) Te)
+		'((EB) TV)
+		'((EB) Desc)
+		'((Te) W)
+		'((TV PS) NP)
+		'((TV PS) MP)
+		'((NP TV) NS)
+	)
+)
+
+
 
 ;Regles de premier niveau
 
@@ -115,7 +137,7 @@
 ;Calcul de la temperature finale de l'eau
 
 (defun getTe (f spot)
-		(dolist (x *tempSpot*)
+		(dolist (x *Te*)
 			( if (member spot x)
 						(cond
 								((AND (>= f 0) (<= f 10))		(setq Te (- (cadr x) 0.19) ))
@@ -350,7 +372,18 @@
 
 	)
 )
+
+;MOTEUR D'INFERENCE
+
+
+
 ;Tests
+
+(print *BF*)
+(print (symbol-value (car *BF*)))
+(print *but*)
+(print *BR*)
+
 (getEB FV)
 (print EB)
 

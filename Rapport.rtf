@@ -15,7 +15,7 @@ Entr\'e9e: (FV, Text, S)\
 \pard\pardeftab720\ri0\sl276\slmult1\sa200\partightenfactor0
 
 \fs22 \cf0 FV -> EB # Force du vent donne \'e9chelle de beaufort\
-FV + Text + S -> T   #Force du vent + temp\'e9rature ext\'e9rieure + Spot donne Temp\'e9rature de l'eau\
+FV + S -> Te   #Force du vent + temp\'e9rature ext\'e9rieure + Spot donne Temp\'e9rature de l'eau\
 S -> PS  # le spot donne la popularit\'e9 du spot\
 \pard\pardeftab720\ri0\sl259\slmult1\sb40\partightenfactor0
 
@@ -62,7 +62,7 @@ Force du vent\'a0= [0\'a0;\uc0\u8734 [\
 Text = [0\'a0;\uc0\u8734 [\
 S = \{Landes_FR, CapeTown_RSA, GoldCoast_AUS, Ohahu_HWI, Bali_IDN, Reykjanes_ISL\}\
 PS = \{Faible, Moyen, Eleve\}\
-T =[0\'a0;\uc0\u8734 [\
+Te =[0\'a0;\uc0\u8734 [\
 EB = [0\'a0;12[\
 Desc => 7 descriptions possibles, voir les r\'e8gles pour plus de d\'e9tails.\
 TV =[0\'a0;9] Si TV > 9 => Renvoi une erreur\
