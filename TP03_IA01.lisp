@@ -37,6 +37,68 @@
 				"Longboard"
 			)
 )
+;Modèle de planche en fonction de la popularité du spot et Taille de la vague
+
+(defun getMP(x y)
+ 		(cond
+ 			(
+			(>= (cadr x) 7)
+			(setq MP '("Big Wave Surfboard"))
+			)
+			(
+			(<= (car x) 0.1)
+			(setq MP '("Funboard"))
+			)
+ 			((AND
+				(AND (>= (car x) 4)
+				 	 (< (cadr x) 7)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Shortboard" "Big Wave Surfboard"))
+			)
+			((AND
+				(AND (>= (car x) 4)
+				 	 (< (cadr x) 7)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Big Wave Surfboard"))
+			)
+			((AND
+				(AND (> (car x) 0.1)
+				 	 (<= (cadr x) 1.25)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Funboard" "Shortboard" "Fish Surfboard" "Longboard" ))
+			)
+			((AND
+				(AND (> (car x) 0.1)
+				 	 (<= (cadr x) 1.25)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Shortboard" "Fish Surfboard"))
+			)
+			((AND
+				(AND (> (car x) 1.25)
+				 	 (< (cadr x) 4)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Shortboard" "Fish Surfboard"))
+			)
+			((AND
+				(AND (> (car x) 1.25)
+				 	 (< (cadr x) 4)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Shortboard"))
+			)
+		)
+ )
 
 (setq *TV*
 	'(
@@ -164,96 +226,68 @@
 			)
 )
 
-;Modèle de planche en fonction de la popularité du spot et Taille de la vague
-
+;Modele planche en fonction de TV (ici x) et Popularite Spot (ici y)
 (defun getMP(x y)
  		(cond
+ 			(
+			(>= (cadr x) 7)
+			(setq MP '("Big Wave Surfboard"))
+			)
+			(
+			(<= (car x) 0.1)
+			(setq MP '("Funboard"))
+			)
+ 			((AND
+				(AND (> (car x) 4)
+				 	 (< (cadr x) 7)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Shortboard" "Big Wave Surfboard"))
+			)
 			((AND
- 						(OR
- 								(AND
- 									(>= x 4.1) (<= x 6))
- 							  (AND
- 									(>= x 7)) (<= x 9)
- 						 )
- 						(OR
- 								(EQ y 'FAIBLE) (EQ y 'MOYEN)
- 						)
- 				)
- 			(setq MP (list (nth 0 *MP*) (nth 1 *MP*)))
- 			)
- 			((AND
- 						(OR
- 								(AND
- 									(>= x 4.1) (<= x 6))
- 								(AND
- 									(>= x 7)) (<= x 9))
- 								(EQ y 'ELEVE)
- 			 )
- 			(setq MP  (nth 1 *MP*))
- 			)
- 			((AND
- 						(OR
- 							(EQ x 0)
- 							(AND
- 								(>= x 0)) (<= x 0.1))
- 						(OR
- 							(EQ y 'FAIBLE) (EQ y 'MOYEN)  (EQ y 'ELEVE))
- 				)
- 			)
- 			(setq MP (nth 1 *MP*))
- 			((AND
- 						(OR
- 							(AND
- 								(>= x 0.2) (<= x 0.5))
- 							(AND
- 								(>= x 0.6)) (<= x 1.25)
- 						)
- 						 (OR
- 							(EQ y 'FAIBLE) (EQ y 'MOYEN)
- 						 )
- 				)
- 			(setq MP (list (nth 0 *MP*) (nth 2 *MP*)(nth 3 *MP*)(nth 4 *MP*))))
- 			((AND
- 						(OR
-							(AND
- 								(>= x 0.2) (<= x 0.5)
- 							)
- 							(AND
- 								(>= x 0.6) (<= x 1.25)
- 							)
- 						(EQ y 'ELEVE)
- 						)
- 				)
- 			(setq MP (assoc (nth 0 *MP*)(nth 3 *MP*)))
- 			)
- 			((AND
- 						(OR
- 							(AND
- 								(>= x 1.3) (<= x 2.5)
- 							)
- 							(AND
- 								(>= x 2.6)) (<= x 4)
- 							)
- 						(OR
- 							(EQ y 'FAIBLE) (EQ y 'MOYEN)
- 						)
- 				)
- 			(setq MP (list (nth 0 *MP*) (nth 3 *MP*)(nth 4 *MP*)))
- 			)
+				(AND (> (car x) 4)
+				 	 (< (cadr x) 7)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Big Wave Surfboard"))
+			)
 			((AND
- 						(OR
- 							(AND
-								(>= x 1.3) (<= x 2.5)
- 							)
- 							(AND
- 								(>= x 2.6)) (<= x 4)
- 							)
- 						(EQ y 'ELEVE)
- 				)
- 		 (setq MP (nth 1 *MP*))
- 	 		)
- 		)
+				(AND (> (car x) 0.1)
+				 	 (<= (cadr x) 1.25)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Funboard" "Shortboard" "Fish Surfboard" "Longboard" ))
+			)
+			((AND
+				(AND (> (car x) 0.1)
+				 	 (<= (cadr x) 1.25)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Shortboard" "Fish Surfboard"))
+			)
+			((AND
+				(AND (> (car x) 1.25)
+				 	 (<= (cadr x) 4)
+				)
+			 (OR (EQ y 'FAIBLE) (EQ y 'MOYEN))
+			)
+			(setq MP '("Shortboard" "Fish Surfboard"))
+			)
+			((AND
+				(AND (> (car x) 1.25)
+				 	 (<= (cadr x) 4)
+				)
+			 (EQ y 'ELEVE)
+			)
+			(setq MP '("Shortboard"))
+			)
+		)
  )
+
 ;Nombre de personnes en fonction de la taille de la vague (ici x) et de la popularité du spot (ici y)
 (defun getNP (x y)(
 	cond
@@ -472,3 +506,5 @@
 
 (getNS '(53 57) '(2 3))
 (print NS)
+
+(dolist (tv *tv*) (print (getMP tv 'ELEVE)))
