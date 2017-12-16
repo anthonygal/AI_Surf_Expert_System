@@ -113,7 +113,7 @@
 )
 ;Calcul de la temperature finale de l'eau
 
-(defun getT (f spot)
+(defun getTe (f spot)
 		(dolist (x *tempSpot*)
 			( if (member spot x)
 						(cond
