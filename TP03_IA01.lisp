@@ -419,21 +419,23 @@
 
 ;Applique la regle R, met a jour la base de fait et retire la regle de la base de regle
 (defun AppliquerRegle (R)(
-
+	progn
+		(apply (caddr R) (cadr R)) ;appel de la fonction get correspondante qui met à jour elle meme la BF par definition des fonctions get et de la BF 
+		(delete R *BR*)
 	)
 )
 
-(defun resultat (B BF BR)(
+(defun resultat (B)(
 	loop(
-		if (ButDansBF? B BR)
+		if (ButDansBF? B)
 			(progn
 				(dolist (x B)
 					(print (symbol-value x))
 				)
 				(return)
 			)
-			(if (NOT (EQ BR NIL))
-				(dolist (r (ReglesApplicables BF BR))
+			(if (NOT (EQ *BR* NIL))
+				(dolist (r (ReglesApplicables))
 					(AppliquerRegle r)
 				)
 				(progn
