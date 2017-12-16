@@ -29,7 +29,8 @@
 )
 
 (setq *MP*
-			'("Shortboard"
+			'(
+				"Shortboard"
 				"Big Wave Surfboard"
 				"Funboard"
 				"Fish Surfboard"
@@ -117,12 +118,12 @@
 		(dolist (x *tempSpot*)
 			( if (member spot x)
 						(cond
-								((AND (>= f 0) (<= f 10))		(setq Te (- car x 0.19) ))
-								((AND (>= f 11) (<= f 20))		(setq Te (- car x 0.63) ))
-								((AND (>= f 21) (<= f 30))		(setq Te (- car x 1.29) ))
-								((AND (>= f 31) (<= f 40))		(setq Te (- car x 2.05) ))
-								((AND (>= f 41) (<= f 50))		(setq Te (- car x 3.01) ))
-								((AND (>= f 51) (<= f 60))		(setq Te (- car x 4.25) ))
+								((AND (>= f 0) (<= f 10))		(setq Te (- (cadr x) 0.19) ))
+								((AND (>= f 11) (<= f 20))		(setq Te (- (cadr x) 0.63) ))
+								((AND (>= f 21) (<= f 30))		(setq Te (- (cadr x) 1.29) ))
+								((AND (>= f 31) (<= f 40))		(setq Te (- (cadr x) 2.05) ))
+								((AND (>= f 41) (<= f 50))		(setq Te (- (cadr x) 3.01) ))
+								((AND (>= f 51) (<= f 60))		(setq Te (- (cadr x) 4.25) ))
 								((> f 60)		(print "Erreur: Trop de vent pour surfer!")))
 						)
 			)
@@ -130,14 +131,14 @@
 
 ;Wetsuit en fonction de la temperature
 
-(defun getWetsuit(x)
+(defun getW(x)
 			(cond
 				((AND (>= x 11) (<= x 13))     (setq W (nth 0 *W*)))
 				((AND (>= x 14) (<= x 16))     (setq W (nth 1 *W*)))
 				((AND (>= x 17) (<= x 19))     (setq W (nth 2 *W*)))
 				((AND (>= x 20) (<= x 23))     (setq W (nth 3 *W*)))
 				((AND (>= x 24) (<= x 28))     (setq W (nth 4 *W*)))
-				((> x 28)   (setq W (nth 6 *W*)))
+				((> x 28)   (setq W (nth 5 *W*)))
 			)
 )
 
