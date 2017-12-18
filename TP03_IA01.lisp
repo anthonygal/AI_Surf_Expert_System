@@ -140,7 +140,7 @@
 									((AND (>= f 31) (<= f 40))		(setq Te (- (cadr x) 2.05) ))
 									((AND (>= f 41) (<= f 50))		(setq Te (- (cadr x) 3.01) ))
 									((AND (>= f 51) (<= f 60))		(setq Te (- (cadr x) 4.25) ))
-									((> f 60)		(print "Erreur: Trop de vent pour surfer!")))
+									((> f 60)		(error "Erreur: Trop de vent pour surfer!")))
 							)
 				)
 	)
@@ -168,11 +168,11 @@
 	(defun getTV(x)
 		(if(< x 8)
 			(setq TV (nth x *TV*))
-			(print "Erreur: On parle de tsunami là! Fuis pauvre fou!")
+			(error "Erreur: On parle de tsunami là! Fuis pauvre fou!")
 	     )
 	)
 
-;Regles de troisieme niveau	
+;Regles de troisieme niveau
 
 	;R7: Modèle de planche en fonction de la popularité du spot et Taille de la vague
 	(defun getMP(x y)
@@ -379,7 +379,7 @@
 						(push r res)
 					)
 				)
-				(reverse res)
+				(reverse res)   ;La 1 ere règle applicable
 		)
 	)
 )
@@ -419,9 +419,9 @@
 					(progn
 						(AppliquerRegle r)
                         (print "ETAT DE LA BASE DE FAITS:")
-						(dolist (f *BF*) 
-							(print (list f '= (symbol-value f)))	
-						) 
+						(dolist (f *BF*)
+							(print (list f '= (symbol-value f)))
+						)
 						(print "--------------------")
 					)
 				)
