@@ -344,15 +344,21 @@
 
 ;Algo de chainage avant en largeur d'abord
 ;	FAIRE{
-;	FIN=0
 ;	Si but est dans BF
-;		Afficher reslultat
-;		FIN=1
+;		Afficher resultat
+; 	Retour
 ;	Sinon;
-;		Trouver regles candidates
-;		Appliquer regles / ajout des resultats à la base de fait
-;		Retirer les regles de la *BR*
-;	}TANT QUE FIN=0
+;		Trouver regles candidates*
+;		Si il y a des regles candidates
+		;		Pour chaque Règle candidate r
+;						Appliquer r (mise à jour de la base de faits)
+;						retirer r de la base de Règles
+;				Fin ¨pour
+;		Sinon
+;				Echec, aucun resultat trouvé
+;		Fin Si
+;	Fin Si}
+
 
 
 ;Verifie si une sous liste de But est dans la BR
