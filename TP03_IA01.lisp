@@ -348,7 +348,7 @@
 ;		Afficher resultat
 ; 	Retour
 ;	Sinon;
-;		Trouver regles candidates*
+;		Trouver regles candidates
 ;		Si il y a des regles candidates
 		;		Pour chaque Règle candidate r
 ;						Appliquer r (mise à jour de la base de faits)
